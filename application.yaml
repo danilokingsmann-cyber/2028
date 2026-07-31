@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/danilokingsmann-cyber/2028.git
-    targetRevision: HEAD
+    targetRevision: uat
     path: "."
     directory:
       recurse: true
