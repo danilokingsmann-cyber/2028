@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: mywebapp-application:apps/Deployment:default/myapp-deploy
+    deployment.kubernetes.io/revision: "1"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"mywebapp-application:apps/Deployment:default/myapp-deploy"},"labels":{"app":"green-app"},"name":"myapp-deploy","namespace":"default"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"green-app"}},"template":{"metadata":{"labels":{"app":"green-app"}},"spec":{"containers":[{"image":"ebonje/nginx:version1","name":"green-app","ports":[{"containerPort":80}]}]}}}}
+  creationTimestamp: "2026-07-31T18:43:03Z"
+  generation: 1
+  labels:
+    app: green-app
+  name: myapp-deploy
+  namespace: default
+  resourceVersion: "709436"
+  uid: 8e1a33db-b31d-4a18-bcef-dee262f07d70
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: green-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: green-app
+    spec:
+      containers:
+      - image: ebonje/nginx:version1
+        imagePullPolicy: IfNotPresent
+        name: green-app
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 3
+  conditions:
+  - lastTransitionTime: "2026-07-31T18:43:07Z"
+    lastUpdateTime: "2026-07-31T18:43:07Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2026-07-31T18:43:03Z"
+    lastUpdateTime: "2026-07-31T18:43:07Z"
+    message: ReplicaSet "myapp-deploy-5cdcbc8989" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 3
+  replicas: 3
+  terminatingReplicas: 0
+  updatedReplicas: 3
